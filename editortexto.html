@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<!-- ficar responsivo, igual em varios dispositivos -->
+	<meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+	<title>Editor de Texto com JS e JQUERY</title>
+	<!-- CODIGO FONTE -->
+	<script src="https://kit.fontawesome.com/5d7c26c4ce.js"></script>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" 
+	integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+	<!-- link do css na pasta - nome da pasta/nome do css-->
+	
+</head>
+<body onload="AtivaEditMode()">
+<div class="container">
+	<h3 id="titulo">EDITOR DO ANDREY MOURA GOUVÊA</h3>
+	<div class="row">
+		<div class="col-sm-2">
+			<select class="form-control" onclick="aplicaFormat('fontName',this.value);">
+				<option disabled="" selected="">Fonte</option>
+				<option value="Arial">Arial</option>
+				<option value="Times New Roman">Times New Roman</option>
+				<option value="Courier">Courier</option>
+			</select>
+		</div>
+		<div class="col-sm-2">
+			<select class="form-control" onclick="aplicaFormat('formatBlock', this.value);">
+				<option disabled=""selected>Título</option>
+				<option value="h1">H1</option>
+				<option value="h2">H2</option>
+				<option value="h3">H3</option>
+				<option value="h4">H4</option>
+				<option value="h5">H5</option>
+				<option value="h6">H6</option>
+			</select>
+		</div>
+	<div class="col-sm-2">
+		<!-- tamanho da fonte, de 1 a 7 -- obs --> <!-- senão for size-control, pode ser form-control -->
+		<select class="form-control" onclick="aplicaTamanho('fontSize', this.value);">
+		<option disabled=""selected>Tamanho</option>
+		<option value="1" id="o1">8 pt</option>
+		<option value="2" id="o2">9 pt</option>
+		<option value="3" id="o3">10 pt</option>
+		<option value="4" id="o4">11 pt</option>
+		<option value="5" id="o5">12 pt</option>
+		<option value="6" id="o6">14 pt</option>
+		<option value="7" id="o7">16 pt</option>
+		</select>
+	</div>
+	<div class="col-sm-4">
+		<!-- bold = negrito, italic = italico.. -->
+		<button class="btn btn-default" onclick="aplicaStyle('bold')"><i class="fa fa-bold"></i></button>
+		<button class="btn btn-default" onclick="aplicaStyle('italic')"><i class="fas fa-italic"></i></button>
+		<button class="btn btn-default" onclick="aplicaStyle('underline')"><i class="fas fa-underline"></i></button>
+		<button class="btn btn-default" onclick="aplicaStyle('justifyLeft')"><i class="fa fa-align-left"></i></button>
+		<button class="btn btn-default" onclick="aplicaStyle('justifyCenter')"><i class="fa fa-align-center"></i></button>
+		<button class="btn btn-default" onclick="aplicaStyle('justifyRight')"><i class="fa fa-align-right"></i></button>
+		<button class="btn btn-default" onclick="aplicaStyle('justifyJustify')"><i class="fa fa-align-justify"></i></button>
+		<button class="btn btn-default" onclick="aplicaFoto()"><i class="fas fa-file-image"></i></button>
+	</div>
+	<div class="col-sm-1">
+		<!-- cor rgb -->
+		<input type="color" class="form-control" onclick="aplicaFormat('foreColor', this.value);">
+	</div>
+	<!-- cor de fundo do texto, ou "backColor" ou "highlightColor" -->
+	<div class="col-sm-1">
+		<input type="color" class="form-control" onclick="aplicaFormat('backColor', this.value);">
+	</div>
+	<br>
+	<div class="row">
+		<div class="col-sm-12"id="area_editor"> 
+				<iframe frameborder="1" id="editor"></iframe>
+			</div>
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+	function AtivaEditMode(){
+		editor.contentDocument.designMode = 'On';
+	}
+	function aplicaFormat(command,arg){
+		editor.contentDocument.execCommand(command, false, arg);
+	}
+	function aplicaStyle(command){
+		editor.contentDocument.execCommand(command, false, null);
+
+	}
+	function aplicaFoto(){
+		var url = prompt("Entre com a URL");
+		editor.contentDocument.write("<img src='"+url+"'>");
+		//agradeço ao pedro pela ajuda
+	}
+
+	function aplicaTamanho(command,arg){
+		editor.contentDocument.execCommand(command, false, arg);
+	}
+</script>
+<style type="text/css">
+	iframe#editor{
+		width: 77vw;
+		height: 60vh;
+	}
+	#area_editor{
+		margin-top: 2%;
+		margin-left: 1.5%;
+	}
+	p[contenteditable]{
+		border: none;
+	}
+	#titulo{
+		margin-top: 3.5%;
+		margin-left: 25%;
+	}
+	#foto{
+
+	}
+</style>
+
+	
+</body>
+</html>
+<!--
+	1- Select para alterar tamanho da fonte
+	2- Botões italic e underline
+	3- Botões de alinhamento à esquerda, à direita e justificado
+	4- Sombreamento do texto (cor de fundo)
+
+
+	Bônus - Adicionar imagem via URL (alert no java)
+-->
